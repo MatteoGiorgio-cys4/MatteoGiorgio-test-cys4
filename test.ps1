@@ -1,1 +1,1 @@
-whoami >> whoami.log
+whoami >> $HOME\Downloads\whoami.log
