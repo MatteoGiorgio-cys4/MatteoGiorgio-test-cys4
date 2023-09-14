@@ -1,0 +1,22 @@
+REPLICARE ATTACCO "DEFENSE EVASION"
+
+CERCARE DETECTION
+
+CERCARE MITIGATION
+
+New-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Word"
+New-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security"
+New-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView"
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security" -Name "VBAWarnings" -Value "1" -PropertyType "Dword"
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView" -Name "DisableInternetFilesInPV" -Value "1" -PropertyType "Dword"
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView" -Name "DisableUnsafeLocationsInPV" -Value "1" -PropertyType "Dword"
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView" -Name "DisableAttachementsInPV" -Value "1" -PropertyType "Dword"
+
+
+#CLEANUP
+
+Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security" -Name "VBAWarnings" -ErrorAction Ignore | Out-Null
+Remove-Item -Path "HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView" -ErrorAction Ignore
+
+#TO ADD INSIDE THE SYSMON CONFIG
+<TargetObject name="" condition="contains">Word\Security</TargetObject> <!-- Microsoft:Office: defense evasion -->
